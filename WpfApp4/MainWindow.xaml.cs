@@ -62,62 +62,6 @@ namespace WpfApp4
 
     public partial class MainWindow : Window
     {
-        /*List<Rectangle> _rectangles;
-
-        public MainWindow()
-        {
-            InitializeComponent();
-
-            Init();
-        }
-
-        void Init()
-        {
-            int canvasWidth = 800;
-            int canvasHeight = 450;
-            canvas.Width = canvasWidth;
-            canvas.Height = canvasHeight;
-
-            Rectangle rectangle = new()
-            {
-                Width = 20,
-                Height = 20,
-                Fill = new SolidColorBrush(Colors.Blue),
-            };
-            _rectangles = [rectangle];
-            canvas.Children.Add(rectangle);
-
-            Canvas.SetLeft(rectangle, (canvasWidth / 2) - (rectangle.Width / 2));
-            Canvas.SetTop(rectangle, (canvasHeight / 2) - (rectangle.Height / 2));
-        }
-
-        private void Window_KeyDown(object sender, KeyEventArgs e)
-        {
-            Move(e.Key);
-        }
-
-        void Move(Key eKey)
-        {
-            string key = eKey.ToString();
-            double y = Canvas.GetTop(_rectangles[0]);
-            double x = Canvas.GetLeft(_rectangles[0]);
-            switch (key)
-            {
-                case "Up":
-                    Canvas.SetTop(_rectangles[0], y - 1);
-                    break;
-                case "Down":
-                    Canvas.SetTop(_rectangles[0], y + 1);
-                    break;
-                case "Left":
-                    Canvas.SetLeft(_rectangles[0], x - 1);
-                    break;
-                case "Right":
-                    Canvas.SetLeft(_rectangles[0], x + 1);
-                    break;
-            }
-        }*/
-
         List<Block> _blockList;
         DispatcherTimer _timer;
         Rectangle _rectangle;
