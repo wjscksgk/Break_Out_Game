@@ -17,7 +17,7 @@ namespace WpfApp4
     {
         public double x { get; set; }
         public double y { get; set; }
-        int width = 190;
+        int width = 100;
         int height = 50;
         public List<Block> blockList = new List<Block>();
 
@@ -32,8 +32,8 @@ namespace WpfApp4
                 };
                 if (block.x >= canvasWidth)
                 {
-                    block.x = (i % 4) * block.width + (i % 4) * 10;
-                    block.y = (i / 4) * block.height;
+                    block.x = (i % 8) * block.width;
+                    block.y = (i / 8) * block.height;
                 }
                 blockList.Add(block);
             }
@@ -48,12 +48,14 @@ namespace WpfApp4
                 {
                     Width = block.width,
                     Height = block.height,
-                    Fill = new SolidColorBrush(Colors.Blue),
+                    Fill = new SolidColorBrush(Colors.Black),
+                    Stroke = new SolidColorBrush(Colors.White),
+                    StrokeThickness = 3
                 };
                 rect.DataContext = block;
                 canvas.Children.Add(rect);
 
-                Canvas.SetTop(rect, block.y + 10*(i/4));
+                Canvas.SetTop(rect, block.y);
                 Canvas.SetLeft(rect, block.x);
                 i++;
             }
@@ -65,7 +67,7 @@ namespace WpfApp4
         List<Block> _blockList;
         DispatcherTimer _timer;
         Rectangle _rectangle;
-        Rectangle _ball;
+        Ellipse _ball;
         int _y;
         int _random;
         double _ballX;
@@ -88,7 +90,7 @@ namespace WpfApp4
             canvas.Height = canvasHeight;
 
             Block block = new();
-            block.MakeBlock(16, canvasWidth);
+            block.MakeBlock(32, canvasWidth);
             block.MakeBlockControls(canvas);
             _blockList = block.blockList;
 
@@ -96,7 +98,7 @@ namespace WpfApp4
             {
                 Width = 80,
                 Height = 10,
-                Fill = new SolidColorBrush(Colors.Blue),
+                Fill = new SolidColorBrush(Colors.White),
             };
             _rectangle = rectangle;
             canvas.Children.Add(rectangle);
@@ -104,13 +106,13 @@ namespace WpfApp4
             Canvas.SetLeft(rectangle, (canvasWidth / 2) - (rectangle.Width / 2));
             Canvas.SetTop(rectangle, 380);
 
-            Rectangle ball = new()
+            Ellipse ball = new()
             {
                 Width = 10,
                 Height = 10,
                 Fill = new SolidColorBrush(Colors.White),
-                Stroke = new SolidColorBrush(Colors.Black),
-                StrokeThickness = 1,
+                /*Stroke = new SolidColorBrush(Colors.Black),
+                StrokeThickness = 1,*/
             };
             _ball = ball;
             canvas.Children.Add(ball);
@@ -144,9 +146,14 @@ namespace WpfApp4
 
                 if (rect != null && IsCollision(rect))
                 {
-                    _y = -_y;
                     canvas.Children.Remove(rect);
                     _blockList.Remove(block);
+                    if (_y > 0)
+                    {
+                        _random = -_random;
+                        break;
+                    }
+                    _y = -_y;
                     break;
                 }
             }
